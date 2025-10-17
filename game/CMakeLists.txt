@@ -1,5 +1,7 @@
 
-set(SOURCE_FILES src/main.cpp)
+set(SOURCE_FILES src/main.cpp
+        src/Game.cpp
+        src/Game.h)
 set(EXE_FILE Game)
 
 add_executable(${EXE_FILE} ${SOURCE_FILES})
