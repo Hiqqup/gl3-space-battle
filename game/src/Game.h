@@ -10,6 +10,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Shader.h"
+#include "Mesh.h"
+
 namespace gl3 {
     class Game {
         public:
@@ -17,6 +20,9 @@ namespace gl3 {
         Game(int width, int height, const std::string &title);
         virtual ~Game();
         private:
+        Shader *shader;
+        Mesh *mesh;
+
         glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
         void processInput(GLFWwindow *window);
         static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -25,7 +31,6 @@ namespace gl3 {
         void draw();
         void updateDeltaTime();
 
-        unsigned int shaderProgram;
         GLFWwindow *window;
         float zRotation = 0.0f;
         float rotationSpeed = 120.0f;
@@ -53,14 +58,7 @@ namespace gl3 {
         fragColor = vec4(0.4f, 0.2f, 0.8f, 1.0f);
     }
 )";
-        float vertices[18] = {
-            -0.5f, 0.05f, 0.0f,
-            0.5f, 0.05f, 0.0f,
-            -0.2f,  0.35f, 0.0f,
 
-            -0.5f, -0.05f, 0.0f,
-            0.5f, -0.05f, 0.0f,
-            -0.2f,  -0.35f, 0.0f
-          };
+
     };
 }
