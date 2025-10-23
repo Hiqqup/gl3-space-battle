@@ -18,6 +18,16 @@ namespace gl3 {
         void use() const;
         virtual ~Shader();
 
+        // Delete copy constructor
+        Shader(const Shader &shader) = delete;
+
+        // Explicit move constructor
+        Shader(Shader &&other) noexcept {
+            std::swap(this->shaderProgram, other.shaderProgram);
+            std::swap(this->vertexShader, other.vertexShader);
+            std::swap(this->fragmentShader, other.fragmentShader);
+        }
+
     private:
 
         unsigned int shaderProgram = 0;

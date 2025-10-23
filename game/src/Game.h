@@ -19,11 +19,11 @@ namespace gl3 {
         void run();
         Game(int width, int height, const std::string &title);
         virtual ~Game();
+        glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
         private:
         Shader *shader;
         Mesh *mesh;
 
-        glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
         void processInput(GLFWwindow *window);
         static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 

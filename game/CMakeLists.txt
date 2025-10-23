@@ -5,7 +5,9 @@ set(SOURCE_FILES src/main.cpp
         src/Shader.cpp
         src/Shader.h
         src/Mesh.cpp
-        src/Mesh.h)
+        src/Mesh.h
+        src/Entity.cpp
+        src/Entity.h)
 set(EXE_FILE Game)
 
 add_executable(${EXE_FILE} ${SOURCE_FILES})
