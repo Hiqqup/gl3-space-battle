@@ -21,11 +21,13 @@ Entity::Entity(Shader shader,
 {
 }
 
-void Entity::update(GLFWwindow *window, float deltaTime) {
+void Entity::update() {
 }
 
-void Entity::draw(Game *game) {
-    const glm::mat4 mvpMatrix = game->calculateMvpMatrix(position, zRotation, scale);
+void Entity::draw(Game* game) {
+    const glm::mat4 mvpMatrix = game->calculateMvpMatrix(position, zRotation , scale);
+    shader.use();
+    shader.setVector("color", color);
     shader.setMatrix("mvp", mvpMatrix);
     mesh.draw();
 }

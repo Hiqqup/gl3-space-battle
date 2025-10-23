@@ -12,6 +12,8 @@
 
 #include "Shader.h"
 #include "Mesh.h"
+#include "Entity.h"
+#include "Ship.h"
 
 namespace gl3 {
     class Game {
@@ -21,8 +23,8 @@ namespace gl3 {
         virtual ~Game();
         glm::mat4 calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees, glm::vec3 scale);
         private:
-        Shader *shader;
-        Mesh *mesh;
+        Shader* shader;
+        Ship *ship;
 
         void processInput(GLFWwindow *window);
         static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
@@ -41,23 +43,6 @@ namespace gl3 {
         float lastFrameTime = 1.0f/60;
 
 
-        const char *vertexShaderSource = R"(
-    #version 460 core
-    layout (location = 0) in vec3 aPos;
-    uniform mat4 mvp;
-    void main() {
-        gl_Position = mvp * vec4(aPos.xyz, 1.0);    // <-- now using the mvp matrix to transform the position
-    }
-)";
-
-
-        const char *fragmentShaderSource = R"(
-    #version 460 core
-    out vec4 fragColor;
-    void main() {
-        fragColor = vec4(0.4f, 0.2f, 0.8f, 1.0f);
-    }
-)";
 
 
     };

@@ -14,7 +14,7 @@ namespace gl3 {
     public:
         Shader(const std::string& fragmentShaderSource, const std::string& vertexShaderSource);
         void setMatrix(const std::string &uniformName, const glm::mat4 &matrix) const;
-        void setVector(const std::string &uniformName, glm::vec4 &vector) const;
+        void setVector(const std::string &uniformName, const glm::vec4 &vector) const;
         void use() const;
         virtual ~Shader();
 

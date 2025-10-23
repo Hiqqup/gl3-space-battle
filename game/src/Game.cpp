@@ -4,6 +4,8 @@
 
 #include "Game.h"
 
+#include "Entity.h"
+
 
 using namespace gl3;
 
@@ -36,8 +38,7 @@ Game::Game(int width, int height, const std::string &title) {
 }
 
 Game::~Game() {
-    delete shader;
-    delete mesh;
+    delete ship;
     glfwTerminate();
 }
 
@@ -58,41 +59,16 @@ glm::mat4 Game::calculateMvpMatrix(glm::vec3 position, float zRotationInDegrees,
 
 }
 
-void Game::processInput(GLFWwindow *window) {
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
-    }
-
-    if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        zRotation += rotationSpeed * deltaTime;
-    }
-
-    if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        zRotation -= rotationSpeed * deltaTime;
-    }
-
-    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        yTranslate += sin(glm::radians(zRotation)) * translationSpeed * deltaTime;
-        xTranslate += cos(glm::radians(zRotation)) * translationSpeed * deltaTime;
-    }
-
-    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        yTranslate -= sin(glm::radians(zRotation)) * translationSpeed * deltaTime;
-        xTranslate -= cos(glm::radians(zRotation)) * translationSpeed * deltaTime;
-    }
-}
 
 
 
 void Game::update() {
-    processInput(window);
-    glm::mat4 mvpMatrix = calculateMvpMatrix(glm::vec3(xTranslate,yTranslate,0), zRotation, glm::vec3(.25f, .25f, .25f));
-    shader->setMatrix("mvp", mvpMatrix);
+    ship->update(window, deltaTime);
 }
 void Game::draw() {
     glClearColor(0.172f, 0.243f, 0.313f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    mesh->draw();
+    ship->draw(this);
     glfwSwapBuffers(window);
 }
 void Game::updateDeltaTime() {
@@ -101,23 +77,11 @@ void Game::updateDeltaTime() {
     lastFrameTime = frameTime;
 }
 void Game::run() {
-    shader = new Shader(fragmentShaderSource ,vertexShaderSource);
-    shader->use();
-
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-
-    mesh = new Mesh({
-            -0.5f, 0.05f, 0.0f,
-            0.5f, 0.05f, 0.0f,
-            -0.2f,  0.35f, 0.0f,
-
-            -0.5f, -0.05f, 0.0f,
-            0.5f, -0.05f, 0.0f,
-            -0.2f,  -0.35f, 0.0f
-          });
+    ship = new Ship();
 
     glfwSetTime(1.0/60);
 

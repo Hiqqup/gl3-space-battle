@@ -7,7 +7,9 @@ set(SOURCE_FILES src/main.cpp
         src/Mesh.cpp
         src/Mesh.h
         src/Entity.cpp
-        src/Entity.h)
+        src/Entity.h
+        src/Ship.cpp
+        src/Ship.h)
 set(EXE_FILE Game)
 
 add_executable(${EXE_FILE} ${SOURCE_FILES})
